@@ -9,26 +9,30 @@ let promise = fetch(
     headers: {
       Authorization: 'token ' + process.argv[3]
     },
-    body: '...'
+
   }
 );
 
 promise.then( function handleResponse(responseObj) {
-  console.log( responseObj.status );
+  console.log( responseObj.status );  //data is still coming at this point
 
   if (responseObj.status > 199 && responseObj.status < 300) {
 
     responseObj.json().then ( function printData(myUserData) {
-      console.log(myUserData.name, myUserData.location);
+      console.log(myUserData.name, myUserData.location, myUserData.location);
 
     } );
 
   } else {
 
-    console.log('There was a problem', responseObj.status);
+    console.log('Error', responseObj.status);
   }
 
 } );
+
+
+
+
 
 
 
@@ -43,26 +47,66 @@ let promise1 = fetch(
     headers: {
       Authorization: 'token ' + process.argv[3]
     },
-    body: '...'
+
   }
 );
 
+let starCount = {
+  name: "something",
+  count: 0
+};
+let i = 0;
+contributorLogin= [];
+
 promise1.then( function handleResponse(responseObj) {
-  console.log( responseObj.status );
-
   if (responseObj.status > 199 && responseObj.status < 300) {
+    responseObj.json().then( function printData(myUserData) {
+      myUserData.forEach(function getStarCount(each) {
 
-    responseObj.json().then( function printData(repos) {
-      // console.log(repos);
+        if (each.stargazers_count > starCount.count) {
+          starCount.count = each.stargazers_count;
+          starCount.name = each.name;
+        }
+      }
 
-      repos.forEach(function(repos) {
-        console.log(repos);
+
+
+
+
+
+
+
+      let promise3 = fetch(
+        'https://api.github.com/repos/' + process.argv[2] + '/' + each.name + '/contributors',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'token ' + process.argv[3]
+          }
+        }
+      );
+
+      promise3.then(function handleResponse(responseObj) {
+        if (responseObj.status > 199 && responseObj.status < 300) {
+          responseObj.json().then(function contributors(contributorData) {
+            if (contributorData[0].login !== 'jakerella') {
+              i++;
+              let contributorName = contributorData[0].login;
+              console.log('CONTRIBUTOR ' + i + ':', contributorName);
+              contributorLogin.push(contributorName);
+
+            }
+
+          });
+        } else {
+          console.log('Error', responseObj.status);
+        }
+
       });
 
     });
-
-  } else {
-    console.log('There was a problem', responseObj.status);
+    console.log('Repo with the most stars: ', starCount.name);
+    console.log('Star Count: ', starCount.count);
   }
 
-} );
+});
