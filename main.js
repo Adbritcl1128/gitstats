@@ -14,7 +14,7 @@ let promise = fetch(
 );
 
 promise.then( function handleResponse(responseObj) {
-  console.log( responseObj.status );  //data is still coming at this point
+  console.log( responseObj.status );  
 
   if (responseObj.status > 199 && responseObj.status < 300) {
 
