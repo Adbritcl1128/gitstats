@@ -15,11 +15,8 @@
   "bugs": {
     "url": "https://github.com/Adbritcl1128/gitstats/issues"
   },
-  "homepage": "https://github.com/Adbritcl1128/gitstats#readme"
-}
-{
-  "name": "gitstats",
+  "homepage": "https://github.com/Adbritcl1128/gitstats#readme",
   "dependencies": {
-    "node-fetch": "^1.6.3"
+    "node-fetch": "^1.7.3"
   }
 }
