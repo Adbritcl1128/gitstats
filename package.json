@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Adbritcl1128/gitstats.git"
+    "url": "git+https://github.com/Adbritcl1128/stats.git"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Adbritcl1128/gitstats#readme",
   "dependencies": {
+    "ecstatic": "^3.0.0",
     "node-fetch": "^1.7.3"
   }
 }
