@@ -31,15 +31,6 @@ promise.then( function handleResponse(responseObj) {
 } );
 
 
-
-
-
-
-
-
-
-
-
 let promise1 = fetch(
   'https://api.github.com/users/' + process.argv[2] + '/repos',
   {
